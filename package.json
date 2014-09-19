@@ -1,8 +1,8 @@
 {
   "name": "backbone-node-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A mixin to use Backbone in node style",
-  "main": "lib/main.js",
+  "main": "lib/index.js",
   "author": {
     "name": "Yuanzong Qiu",
     "email": "congge@gmail.com"
@@ -12,6 +12,10 @@
     "type": "git",
     "url": "https://github.com/yuanzong/backbone-node-client.git"
   },
+  "bugs": {
+    "url": "https://github.com/yuanzong/backbone-node-client/issues"
+  },
+  "homepage": "https://github.com/yuanzong/backbone-node-client",
   "engines": [
     "node >= 0.8.0"
   ],
