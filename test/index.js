@@ -54,7 +54,7 @@ describe('backbone-mixin-model', function () {
       this.model.request = function (method, params) {
         assert.equal(method, 'create');
         assert.equal(params.url, BaseModel.prototype.urlRoot);
-        assert.equal(params.data, JSON.stringify(_.omit(data, 'id')));
+        assert.equal(JSON.stringify(params.data), JSON.stringify(_.omit(data, 'id')));
         params.success();
       };
 
@@ -68,7 +68,7 @@ describe('backbone-mixin-model', function () {
       this.model.request = function (method, params) {
         assert.equal(method, 'update');
         assert.equal(params.url, BaseModel.prototype.urlRoot + '/' + data.id);
-        assert.equal(params.data, JSON.stringify(data));
+        assert.deepEqual(params.data, data);
         params.success();
       };
 
@@ -83,11 +83,10 @@ describe('backbone-mixin-model', function () {
       var value = 'world';
 
       this.model.request = function (method, params) {
-        var json = JSON.parse(params.data);
-        assert.equal(json.id, data.id);
-        assert.equal(json.requiredKey, data.requiredKey);
-        assert.equal(json[key], value);
-        params.success(json);
+        assert.equal(params.data.id, data.id);
+        assert.equal(params.data.requiredKey, data.requiredKey);
+        assert.equal(params.data[key], value);
+        params.success(params.data);
       };
 
       this.model.save(key, value, function (err, model) {
@@ -100,9 +99,8 @@ describe('backbone-mixin-model', function () {
     it('save attr map', function (done) {
       var extra = {hello: 'world'};
       this.model.request = function (method, params) {
-        var json = JSON.parse(params.data);
-        assert.deepEqual(json, _.extend(extra, data));
-        params.success(json);
+        assert.deepEqual(params.data, _.extend(extra, data));
+        params.success(params.data);
       };
 
       this.model.save(extra, function (err, model) {
@@ -235,7 +233,7 @@ describe('backbone-mixin-collection', function () {
       this.collection.request = function (method, params) {
         assert.equal(method, 'create');
         assert.equal(params.url, BaseCollection.prototype.url);
-        assert.equal(params.data, JSON.stringify(modelAttr));
+        assert.deepEqual(params.data, modelAttr);
         modelAttr.id = _.uniqueId('crazy!');
         params.success(modelAttr);
       };
