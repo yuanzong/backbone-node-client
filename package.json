@@ -1,6 +1,6 @@
 {
   "name": "backbone-node-client",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A mixin to use Backbone in node style",
   "main": "lib/index.js",
   "author": "Yuanzong Qiu <congge@gmail.com>",
